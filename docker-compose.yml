@@ -1,0 +1,14 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: listendo-app
+    restart: unless-stopped
+    ports:
+      - "8765:3001"
+    environment:
+      - PORT=3001
+      - DATABASE_URL=${DATABASE_URL:-postgresql://postgres:123123@host.docker.internal:5432/listendo}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
